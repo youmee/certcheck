@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+import argparse
+
+import certcheck
+
+parser = argparse.ArgumentParser(description='Simple HTTP/S response checker.')
+parser.add_argument('-d', '--domain', action='append', help='Domain name to check (without protocol)', required=True)
+parser.add_argument('-f', '--follow', action='store_true', help='Follow redirect', default=False,
+                    dest='follow_redirect')
+parser.add_argument('-g', '--group', action='store_true', default=False, dest='group_by_domain',
+                    help='Grouping results by domain')
+parser.add_argument('-t', '--timeout', metavar='SECONDS', type=float,
+                    help='Timeout per request in seconds (can be float)', default=5)
+parser.add_argument('-v', '--version', action='version', help='Show version',
+                    version='%(prog)s ' + certcheck.__version__)
+
+cli_args = parser.parse_args()
+
+certcheck.main(cli_args)
